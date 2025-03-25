@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"melody-validator-challenge/application"
+	"os"
 )
 
 func main() {
@@ -31,9 +33,9 @@ func main() {
     `
 	fmt.Println(art)
 	fmt.Println("Insert melody:")
-	// reader := bufio.NewReader(os.Stdin)
-	// melody, _ := reader.ReadString('\n')
-	errIndex := application.ValidateMelody("60 A{d=7/4,o=3;a=#} B{o=2;d=1/2} S A{d=2;a=n} G{a=b} B S{d=1/3} C{d=1} D{d=1}")
+	reader := bufio.NewReader(os.Stdin)
+	melody, _ := reader.ReadString('\n')
+	errIndex := application.ValidateMelody(melody)
 	if errIndex > -1 {
 		fmt.Printf("error at position %d", errIndex)
 	} else {
