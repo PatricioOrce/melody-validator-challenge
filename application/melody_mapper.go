@@ -2,7 +2,6 @@ package application
 
 import (
 	"melody-validator-challenge/cmd/server/models"
-	"melody-validator-challenge/domain"
 	"regexp"
 	"strconv"
 	"strings"
@@ -22,12 +21,12 @@ func MapMelody(melody string) models.MelodyResponse {
 
 	for i := 1; i < len(fields); i++ {
 		if fields[i][0] == 'S' {
-			response.Notes = append(response.Notes, domain.Silence{
+			response.Notes = append(response.Notes, models.Silence{
 				Type:     americanToNote[string(fields[i][0])],
 				Duration: GetDuration(fields[i]),
 			})
 		} else {
-			response.Notes = append(response.Notes, domain.Note{
+			response.Notes = append(response.Notes, models.Note{
 				Type:       "note",
 				Name:       americanToNote[string(fields[i][0])],
 				Duration:   GetDuration(fields[i]),
