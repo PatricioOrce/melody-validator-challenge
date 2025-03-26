@@ -13,4 +13,11 @@ func initRoutes() {
 		}
 		handlers.ValidateMelodyHandler(w, r)
 	})
+	http.HandleFunc("/melody/play", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		if r.Method != http.MethodPost {
+			w.WriteHeader(http.StatusMethodNotAllowed)
+		}
+		handlers.PlayMelodyHandler(w, r)
+	})
 }

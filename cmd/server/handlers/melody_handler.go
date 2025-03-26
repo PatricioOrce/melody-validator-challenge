@@ -45,3 +45,17 @@ func ValidateMelodyHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 }
+
+func PlayMelodyHandler(w http.ResponseWriter, r *http.Request) {
+	var body models.PlayMelodyRequest
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		log.Printf("Error decoding JSON: %v", err)
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+	if err := application.PlayMelody(body); err != nil {
+		http.Error(w, "There was an error: %v", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusAccepted)
+}
